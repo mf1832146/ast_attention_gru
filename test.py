@@ -66,14 +66,6 @@ if __name__ == '__main__':
 
     test_code_ids = [[code_w2i[t] if t in code_w2i.keys() else code_w2i["<UNK>"] for t in l] for l in test_code]
 
-    (modeltype, mid, timestart) = modelfile.split('_')
-
-    (timestart, ext) = timestart.split('.')
-    modeltype = modeltype.split('/')[-1]
-
-    config = pickle.load(open(outdir + '/histories/' + modeltype + '_conf_' + timestart + '.pkl', 'rb'))
-    num_inputs = config['num_input']
-
     print('loading model... ')
     model = keras.models.load_model(modelfile, custom_objects={})
     print(model.summary())
