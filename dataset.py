@@ -48,7 +48,7 @@ class DataGen(keras.utils.Sequence):
         com_input_batch = []
         y_batch = []
         for j in range(len(com)):
-            sbt_j, code_j,com_input_j, y_j = generate_y(sbt_pad[j], code_pad[j], com[j], self.nl_dict_len)
+            sbt_j, code_j, com_input_j, y_j = generate_y(sbt_pad[j], code_pad[j], com[j], self.nl_dict_len)
 
             sbt_batch.extend(sbt_j)
             code_batch.extend(code_j)
@@ -70,6 +70,7 @@ def generate_y(sbt, code, comment, com_vocab_size):
     com_input_batch = []
     y_batch = []
     for i in range(1, len(comment)):
+
         y = comment[i]
         com_input = comment[:i]
 
@@ -78,9 +79,8 @@ def generate_y(sbt, code, comment, com_vocab_size):
 
         y_batch.append(y)
         com_input_batch.append(com_input)
-
-    sbt_batch.extend([sbt] * len(y_batch))
-    code_batch.extend([code] * len(code_batch))
+        sbt_batch.append(sbt)
+        code_batch.append(code)
 
     return sbt_batch, code_batch, com_input_batch, y_batch
 
