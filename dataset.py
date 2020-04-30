@@ -9,7 +9,7 @@ from utils import load_pickle
 
 
 class DataGen(keras.utils.Sequence):
-    def __init__(self, code_data, ast_data, com_data, batch_size, sbt_dic, path):
+    def __init__(self, code_data, ast_data, com_data, batch_size, sbt_dic, path, nl_dict_len):
         self.code_data = code_data
         self.ast_data = ast_data
         self.com_data = com_data
@@ -17,6 +17,7 @@ class DataGen(keras.utils.Sequence):
         self.sbt_dic = sbt_dic
         self.path = path
         self.allfids = range(len(self.code_data))
+        self.nl_dict_len = nl_dict_len
 
     def __len__(self):
         return int(np.ceil(len(self.code_data) / self.batch_size))
@@ -47,7 +48,7 @@ class DataGen(keras.utils.Sequence):
         com_input_batch = []
         y_batch = []
         for j in range(len(com)):
-            sbt_j, code_j,com_input_j, y_j = generate_y(sbt_pad[j], code_pad[j], com[j], len(self.nl_dic))
+            sbt_j, code_j,com_input_j, y_j = generate_y(sbt_pad[j], code_pad[j], com[j], self.nl_dict_len)
 
             sbt_batch.extend(sbt_j)
             code_batch.extend(code_j)

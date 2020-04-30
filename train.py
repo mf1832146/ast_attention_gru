@@ -131,8 +131,8 @@ if __name__ == '__main__':
 
     config, model = create_model(config)
 
-    train_gen = DataGen(train_code, train_ast_path, train_y, args.batch_size, ast_w2i, path=args.data_dir + '/tree/train/')
-    valid_gen = DataGen(valid_code, valid_ast_path, valid_y, args.batch_size, ast_w2i, path=args.data_dir + '/tree/valid/')
+    train_gen = DataGen(train_code, train_ast_path, train_y, args.batch_size, ast_w2i, path=args.data_dir + '/tree/train/', nl_dict_len=config['com_vocab_size'])
+    valid_gen = DataGen(valid_code, valid_ast_path, valid_y, args.batch_size, ast_w2i, path=args.data_dir + '/tree/valid/', nl_dict_len=config['com_vocab_size'])
 
     outdir = './out_dir'
     os.makedirs(outdir, exist_ok=True)
