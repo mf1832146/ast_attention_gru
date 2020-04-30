@@ -19,7 +19,7 @@ if __name__ == '__main__':
     parser.add_argument('--gpu', dest='gpu', type=str, default='')
     parser.add_argument('--data_dir', default='../dataset')
     parser.add_argument('--outdir', dest='outdir', type=str, default='./')
-    parser.add_argument('--batch-size', dest='batchsize', type=int, default=200)
+    parser.add_argument('--batch-size', dest='batch_size', type=int, default=200)
     parser.add_argument('--model-type', dest='modeltype', type=str, default=None)
     parser.add_argument('--outfile', dest='outfile', type=str, default=None)
     parser.add_argument('--zero-dats', dest='zerodats', action='store_true', default=False)
