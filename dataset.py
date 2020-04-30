@@ -46,7 +46,7 @@ class DataGen(keras.utils.Sequence):
         code_batch = []
         com_input_batch = []
         y_batch = []
-        for j in len(com):
+        for j in range(len(com)):
             sbt_j, code_j,com_input_j, y_j = generate_y(sbt_pad[j], code_pad[j], com[j], len(self.nl_dic))
 
             sbt_batch.extend(sbt_j)
