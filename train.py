@@ -11,7 +11,7 @@ import signal
 import traceback
 import sys
 import pickle
-
+import tensorflow as tf
 
 class HistoryCallback(Callback):
 
@@ -54,6 +54,15 @@ class HistoryCallback(Callback):
             self.history.setdefault(k, []).append(v)
 
 
+def init_tf(gpu, horovod=False):
+    from keras.backend.tensorflow_backend import set_session
+
+    config = tf.ConfigProto(log_device_placement=False)
+    config.gpu_options.allow_growth = True
+    config.gpu_options.visible_device_list = gpu
+
+    set_session(tf.Session(config=config))
+
 if __name__ == '__main__':
     timestart = int(round(time.time()))
     parser = argparse.ArgumentParser(description='ast-attention gru')
@@ -61,9 +70,13 @@ if __name__ == '__main__':
     parser.add_argument('--epochs', dest='epochs', type=int, default=10)
     parser.add_argument('--batch_size', dest='batch_size', type=int, default=200)
     parser.add_argument('--data_dir', default='../dataset')
+    parser.add_argument('--gpu',  type=str, default='1')
+    parser.add_argument('--tf-loglevel', dest='tf_loglevel', type=str, default='3')
 
     args = parser.parse_args()
 
+    init_tf(args.gpu)
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = args.tf_loglevel
     """
     loading data
     """
