@@ -4,7 +4,7 @@ import time
 
 from dataset import DataGen
 from model import create_model
-from util import load_json, read_pickle
+from my_util import load_json, read_pickle
 from keras.callbacks import ModelCheckpoint, Callback
 import atexit
 import signal

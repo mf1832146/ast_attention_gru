@@ -2,7 +2,7 @@ import random
 
 import keras
 import numpy as np
-from util import read_pickle
+from my_util import read_pickle
 
 
 class DataGen(keras.utils.Sequence):
