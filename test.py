@@ -109,7 +109,7 @@ if __name__ == '__main__':
         if i == 0:
             print(batch_output[0])
 
-    with open(outfn, 'w') as f:
+    with open('predict_results.json', 'w') as f:
         json.dump(outputs, f)
 
 
