@@ -95,14 +95,16 @@ if __name__ == '__main__':
 
     outputs = []
     for i in range(test_gen.__len__()):
-        com_start_list = [comstart for _ in range(args.batch_size)]
-        com_start_batch = np.asarray(com_start_list)
         code_batch, sbt_batch, com_data, nodes_batch = next(iterator)
+
+        com_start_list = [comstart for _ in range(len(code_batch))]
+        com_start_batch = np.asarray(com_start_list)
+
         batch_results = gendescr_3inp(model, code_batch, com_start_batch, sbt_batch, nl_i2w, 30, args.batch_size)
 
         batch_output = [{'node_len': nodes_batch[i],
                          'predict:': batch_results[i],
-                         'trues:': com_data[i]} for i in range(args.batch_size)]
+                         'trues:': com_data[i]} for i in range(len(code_batch))]
         outputs.extend(batch_output)
         if i == 0:
             print(batch_output[0])
