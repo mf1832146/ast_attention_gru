@@ -2,7 +2,7 @@ import argparse
 import os
 import time
 
-from dataset import DataGen, load_json, my_read_pickle
+from dataset import DataGen
 from model import create_model
 from keras.callbacks import ModelCheckpoint, Callback
 import atexit
@@ -11,6 +11,9 @@ import traceback
 import sys
 import pickle
 import tensorflow as tf
+
+from utils import load_json, load_pickle
+
 
 class HistoryCallback(Callback):
 
@@ -84,9 +87,9 @@ if __name__ == '__main__':
     valid_data = load_json(args.data_dir + '/valid.json')
     test_data = load_json(args.data_dir + '/test.json')
 
-    code_i2w = my_read_pickle(args.data_dir + '/code_i2w.pkl')
-    nl_i2w = my_read_pickle(args.data_dir + '/nl_i2w.pkl')
-    ast_i2w = my_read_pickle(args.data_dir + '/ast_i2w.pkl')
+    code_i2w = load_pickle(args.data_dir + '/code_i2w.pkl')
+    nl_i2w = load_pickle(args.data_dir + '/nl_i2w.pkl')
+    ast_i2w = load_pickle(args.data_dir + '/ast_i2w.pkl')
 
     code_i2w[-1] = '<PAD>'
     nl_i2w[-1] = '<PAD>'
@@ -103,8 +106,6 @@ if __name__ == '__main__':
     train_ast_path = [x['ast_num'] for x in train_data]
     train_code = [x['code'] for x in train_data]
     train_nl = [x['nl'] for x in train_data]
-
-    train_ast_tree = [my_read_pickle(args.data_dir + '/tree/train/'+ n) for n in train_ast_path]
 
     valid_ast_path = [x['ast_num'] for x in valid_data]
     valid_code = [x['code'] for x in valid_data]
