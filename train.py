@@ -2,9 +2,8 @@ import argparse
 import os
 import time
 
-from dataset import DataGen
+from dataset import DataGen, load_json, my_read_pickle
 from model import create_model
-from my_util import load_json, read_pickle
 from keras.callbacks import ModelCheckpoint, Callback
 import atexit
 import signal
@@ -85,9 +84,9 @@ if __name__ == '__main__':
     valid_data = load_json(args.data_dir + '/valid.json')
     test_data = load_json(args.data_dir + '/test.json')
 
-    code_i2w = read_pickle(args.data_dir + '/code_i2w.pkl')
-    nl_i2w = read_pickle(args.data_dir + '/nl_i2w.pkl')
-    ast_i2w = read_pickle(args.data_dir + '/ast_i2w.pkl')
+    code_i2w = my_read_pickle(args.data_dir + '/code_i2w.pkl')
+    nl_i2w = my_read_pickle(args.data_dir + '/nl_i2w.pkl')
+    ast_i2w = my_read_pickle(args.data_dir + '/ast_i2w.pkl')
 
     code_i2w[-1] = '<PAD>'
     nl_i2w[-1] = '<PAD>'

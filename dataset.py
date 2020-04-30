@@ -1,8 +1,9 @@
+import json
+import pickle
 import random
 
 import keras
 import numpy as np
-from my_util import read_pickle
 
 
 class DataGen(keras.utils.Sequence):
@@ -33,7 +34,7 @@ class DataGen(keras.utils.Sequence):
         random.shuffle(self.allfids)
 
     def gen(self, code, ast_path, com):
-        ast_tree = [read_pickle(self.path + n) for n in ast_path]
+        ast_tree = [my_read_pickle(self.path + n) for n in ast_path]
         sbt_tree = [sequencing(n) for n in ast_tree]
 
         sbt_pad = [pad([self.sbt_dic(t) for t in s], max_len=100) for s in sbt_tree]
@@ -91,3 +92,12 @@ def pad(seq, max_len):
     if len(seq) < max_len:
         seq.extend([0] * max_len)
     return seq[:max_len]
+
+
+def load_json(path):
+    with open(path, 'r') as f:
+        return json.load(f)
+
+
+def my_read_pickle(path):
+    return pickle.load(open(path, "rb"))
