@@ -68,7 +68,6 @@ if __name__ == '__main__':
 
     print('loading model... ')
     model = keras.models.load_model(modelfile, custom_objects={})
-    print(model.summary())
 
     comstart = np.zeros(30)
 
