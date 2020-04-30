@@ -69,7 +69,7 @@ if __name__ == '__main__':
     timestart = int(round(time.time()))
     parser = argparse.ArgumentParser(description='ast-attention gru')
 
-    parser.add_argument('--epochs', dest='epochs', type=int, default=10)
+    parser.add_argument('--epochs', dest='epochs', type=int, default=20)
     parser.add_argument('--batch_size', dest='batch_size', type=int, default=200)
     parser.add_argument('--data_dir', default='../dataset')
     parser.add_argument('--gpu',  type=str, default='1')
