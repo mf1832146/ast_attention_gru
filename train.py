@@ -125,9 +125,9 @@ if __name__ == '__main__':
 
     config = dict()
 
-    config['code_vocab_size'] = len(code_i2w)
-    config['sbt_vocab_size'] = len(ast_i2w)
-    config['com_vocab_size'] = len(nl_i2w)
+    config['code_vocab_size'] = len(code_i2w) + 1
+    config['sbt_vocab_size'] = len(ast_i2w) + 1
+    config['com_vocab_size'] = len(nl_i2w) + 1
 
     config, model = create_model(config)
 
