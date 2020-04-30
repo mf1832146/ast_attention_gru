@@ -63,6 +63,56 @@ class DataGen(keras.utils.Sequence):
         return [[code_batch, com_input_batch, sbt_batch], y_batch]
 
 
+class TestDataGen(keras.utils.Sequence):
+    def __init__(self, code_data, ast_data, com_data, batch_size, sbt_dic, path, nl_dict_len):
+        self.code_data = code_data
+        self.ast_data = ast_data
+        self.com_data = com_data
+        self.batch_size = batch_size
+        self.sbt_dic = sbt_dic
+        self.path = path
+        self.nl_dict_len = nl_dict_len
+        self.allfids = list(range(len(self.code_data)))
+
+    def __len__(self):
+        return int(np.ceil(len(self.code_data) / self.batch_size))
+
+    def __getitem__(self, idx):
+        start = (idx * self.batch_size)
+        end = self.batch_size * (idx + 1)
+        batchfids = self.allfids[start:end]
+
+        code_data = [self.code_data[i] for i in batchfids]
+        ast_data = [self.ast_data[i] for i in batchfids]
+        com_data = [self.com_data[i] for i in batchfids]
+
+        code_batch, sbt_batch, nodes_batch = self.gen(code_data, ast_data)
+
+        return code_batch, sbt_batch, com_data, nodes_batch
+
+    def gen(self, code, ast_path):
+        ast_tree = [load_pickle(self.path + n) for n in ast_path]
+        sbt_tree = [sequencing(n) for n in ast_tree]
+        nodes_len = [len(traverse_label(n)) for n in ast_tree]
+
+        sbt_pad = [pad([self.sbt_dic[t] for t in s], max_len=100) for s in sbt_tree]
+        code_pad = [pad(s, max_len=50) for s in code]
+
+        sbt_batch = np.asarray(sbt_pad)
+        code_batch = np.asarray(code_pad)
+        nodes_batch = np.asarray(nodes_len)
+
+        return code_batch, sbt_batch, nodes_batch
+
+
+def traverse_label(root):
+    """return list of tokens"""
+    li = [root.label]
+    for child in root.children:
+        li += traverse_label(child)
+    return(li)
+
+
 def generate_y(sbt, code, comment, com_vocab_size):
     sbt_batch = []
     code_batch = []
