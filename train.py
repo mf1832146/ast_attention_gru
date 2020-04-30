@@ -104,6 +104,8 @@ if __name__ == '__main__':
     train_code = [x['code'] for x in train_data]
     train_nl = [x['nl'] for x in train_data]
 
+    train_ast_tree = [my_read_pickle(args.data_dir + '/tree/train/'+ n) for n in train_ast_path]
+
     valid_ast_path = [x['ast_num'] for x in valid_data]
     valid_code = [x['code'] for x in valid_data]
     valid_nl = [x['nl'] for x in valid_data]
@@ -144,4 +146,3 @@ if __name__ == '__main__':
     except Exception as ex:
         print(ex)
         traceback.print_exc(file=sys.stdout)
-
