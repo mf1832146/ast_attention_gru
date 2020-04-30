@@ -59,6 +59,8 @@ class DataGen(keras.utils.Sequence):
         code_batch = np.asarray(code_batch)
         com_input_batch = np.asarray(com_input_batch)
         y_batch = np.asarray(y_batch)
+
+        print(code_batch.shape())
         return [[code_batch, com_input_batch, sbt_batch], y_batch]
 
 
