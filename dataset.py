@@ -16,7 +16,7 @@ class DataGen(keras.utils.Sequence):
         self.batch_size = batch_size
         self.sbt_dic = sbt_dic
         self.path = path
-        self.allfids = range(len(self.code_data))
+        self.allfids = list(range(len(self.code_data)))
         self.nl_dict_len = nl_dict_len
 
     def __len__(self):
