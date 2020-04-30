@@ -102,9 +102,9 @@ if __name__ == '__main__':
 
         batch_results = gendescr_3inp(model, code_batch, com_start_batch, sbt_batch, nl_i2w, 30, args.batch_size)
 
-        batch_output = [{'node_len': nodes_batch[i],
+        batch_output = [{'node_len': str(nodes_batch[i]),
                          'predict:': batch_results[i],
-                         'trues:': com_data[i]} for i in range(len(code_batch))]
+                         'trues:': ' '.join(com_data[i])} for i in range(len(code_batch))]
         outputs.extend(batch_output)
         if i == 0:
             print(batch_output[0])
