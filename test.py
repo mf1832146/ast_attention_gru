@@ -84,7 +84,7 @@ if __name__ == '__main__':
     config['sbt_vocab_size'] = len(ast_i2w) + 1
     config['com_vocab_size'] = len(nl_i2w) + 1
 
-    test_gen = TestDataGen(test_code_ids, test_ast_path, test_y, args.batch_size, ast_w2i,
+    test_gen = TestDataGen(test_code_ids, test_ast_path, test_nl, args.batch_size, ast_w2i,
                         path=args.data_dir + '/tree/test/', nl_dict_len=config['com_vocab_size'])
 
     iterator = test_gen.__iter__()
@@ -105,7 +105,7 @@ if __name__ == '__main__':
                          'trues:': com_data[i]} for i in range(args.batch_size)]
         outputs.extend(batch_output)
         if i == 0:
-            print(batch_output)
+            print(batch_output[0])
 
     with open(outfn, 'w') as f:
         json.dump(outputs, f)
