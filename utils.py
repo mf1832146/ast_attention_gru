@@ -29,7 +29,7 @@ def gendescr_3inp(model, code_data, com_out, sbt_data, com_i2w, com_len, batchsi
 
     final_data = []
     for i in range(len(com_out)):
-        final_data[i] = seq2sent(com_out[i], com_i2w)
+        final_data.append(seq2sent(com_out[i], com_i2w))
 
     return final_data
 
