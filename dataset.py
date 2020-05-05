@@ -40,7 +40,7 @@ class DataGen(keras.utils.Sequence):
         ast_tree = [load_pickle(self.path + n) for n in ast_path]
         sbt_tree = [sequencing(n) for n in ast_tree]
 
-        sbt_pad = [pad([self.sbt_dic[t] for t in s], max_len=100) for s in sbt_tree]
+        sbt_pad = [pad([self.sbt_dic[t] for t in s], max_len=300) for s in sbt_tree]
         code_pad = [pad(s, max_len=50) for s in code]
 
         sbt_batch = []
@@ -95,7 +95,7 @@ class TestDataGen(keras.utils.Sequence):
         sbt_tree = [sequencing(n) for n in ast_tree]
         nodes_len = [len(traverse_label(n)) for n in ast_tree]
 
-        sbt_pad = [pad([self.sbt_dic[t] for t in s], max_len=100) for s in sbt_tree]
+        sbt_pad = [pad([self.sbt_dic[t] for t in s], max_len=300) for s in sbt_tree]
         code_pad = [pad(s, max_len=50) for s in code]
 
         sbt_batch = np.asarray(sbt_pad)
