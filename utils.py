@@ -37,6 +37,10 @@ def gendescr_3inp(model, code_data, com_out, sbt_data, com_i2w, com_len, batchsi
 def seq2sent(seq, com_i2w):
     sent = []
     for i in seq:
+        if com_i2w[i] == '<s>':
+            continue
+        elif com_i2w[i] == '</s>':
+            break
         sent.append(com_i2w[i])
 
     return(' '.join(sent))

@@ -12,6 +12,7 @@ import copy
 from dataset import TestDataGen
 from utils import load_pickle, load_json, gendescr_3inp
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='test')
     parser.add_argument('modelfile', type=str, default=None)
@@ -104,13 +105,15 @@ if __name__ == '__main__':
 
         batch_output = [{'node_len': str(nodes_batch[i]),
                          'predict': batch_results[i],
-                         'true': ' '.join(com_data[i])} for i in range(len(code_batch))]
+                         'true': ' '.join(com_data[i][1:-1])} for i in range(len(code_batch))]
         outputs.extend(batch_output)
         if i == 0:
             print(batch_output[0])
 
     with open('ast-attention-gru_results.json', 'w') as f:
         json.dump(outputs, f)
+
+
 
 
 
