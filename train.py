@@ -70,7 +70,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='ast-attention gru')
 
     parser.add_argument('--epochs', dest='epochs', type=int, default=20)
-    parser.add_argument('--batch_size', dest='batch_size', type=int, default=200)
+    parser.add_argument('--batch_size', dest='batch_size', type=int, default=80)
     parser.add_argument('--data_dir', default='../dataset')
     parser.add_argument('--gpu',  type=str, default='1')
     parser.add_argument('--tf-loglevel', dest='tf_loglevel', type=str, default='3')
