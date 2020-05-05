@@ -16,7 +16,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='test')
     parser.add_argument('modelfile', type=str, default=None)
     parser.add_argument('--num-procs', dest='numprocs', type=int, default='4')
-    parser.add_argument('--gpu', dest='gpu', type=str, default='')
+    parser.add_argument('--gpu', dest='gpu', type=str, default='1')
     parser.add_argument('--data_dir', default='../dataset')
     parser.add_argument('--outdir', dest='outdir', type=str, default='')
     parser.add_argument('--batch-size', dest='batch_size', type=int, default=200)
@@ -103,13 +103,13 @@ if __name__ == '__main__':
         batch_results = gendescr_3inp(model, code_batch, com_start_batch, sbt_batch, nl_i2w, 30, args.batch_size)
 
         batch_output = [{'node_len': str(nodes_batch[i]),
-                         'predict:': batch_results[i],
-                         'trues:': ' '.join(com_data[i])} for i in range(len(code_batch))]
+                         'predict': batch_results[i],
+                         'true': ' '.join(com_data[i])} for i in range(len(code_batch))]
         outputs.extend(batch_output)
         if i == 0:
             print(batch_output[0])
 
-    with open('predict_results.json', 'w') as f:
+    with open('ast-attention-gru_results.json', 'w') as f:
         json.dump(outputs, f)
 
 
