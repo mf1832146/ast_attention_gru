@@ -10,7 +10,7 @@ import tensorflow as tf
 class AstAttentionGRUModel:
     def __init__(self, config):
         config['code_len'] = 50
-        config['sbt_len'] = 100
+        config['sbt_len'] = 300
         config['com_len'] = 30
 
         self.config = config
